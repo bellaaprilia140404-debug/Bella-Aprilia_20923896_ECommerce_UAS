@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - Auréa & Co Fashion Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Product Detail Page Styles */
+        .product-detail-section {
+            padding: 5rem 0;
+            margin-top: 80px;
+            background: #fff;
+        }
+        
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .product-image-gallery {
+            position: sticky;
+            top: 100px;
+        }
+        
+        .product-main-image {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-main-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .product-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+        
+        .thumbnail {
+            min-width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+        
+        .thumbnail.active,
+        .thumbnail:hover {
+            border-color: #d4af37;
+        }
+        
+        .product-info {
+            padding: 1rem 0;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .product-category {
+            color: #d4af37;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stars {
+            color: #ffd700;
+        }
+        
+        .rating-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .reviews-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .product-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .product-options {
+            margin-bottom: 2rem;
+        }
+        
+        .option-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .option-label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .size-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .size-option {
+            padding: 0.75rem 1rem;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .size-option:hover,
+        .size-option.selected {
+            border-color: #d4af37;
+            background: #d4af37;
+            color: white;
+        }
+        
+        .color-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .color-option {
+            padding: 0.5rem 1rem;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .color-sample {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+        }
+        
+        .color-option:hover,
+        .color-option.selected {
+            border-color: #d4af37;
+            background: #f8f9fa;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quantity-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .quantity-btn {
+            background: #f8f9fa;
+            border: none;
+            padding: 0.75rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            transition: background 0.3s ease;
+            width: 40px;
+        }
+        
+        .quantity-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .quantity-input {
+            border: none;
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: 600;
+            color: #182b3d;
+            width: 60px;
+            background: white;
+        }
+        
+        .stock-info {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .in-stock {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        
+        .out-of-stock {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .add-to-cart-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #d4af37, #f4d03f);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        .add-to-cart-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .wishlist-btn {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #514f4f;
+            transition: all 0.3s ease;
+        }
+        
+        .wishlist-btn:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+        
+        .product-features {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .features-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .features-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: 600;
+        }
+        
+        .product-tabs {
+            margin-top: 3rem;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 2rem;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab-btn.active {
+            color: #d4af37;
+            border-bottom-color: #d4af37;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .product-detail-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .product-image-gallery {
+                position: static;
+            }
+            
+            .product-title {
+                font-size: 2rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .product-detail-container {
+                padding: 0 1rem;
+            }
+            
+            .product-title {
+                font-size: 1.5rem;
+            }
+            
+            .size-options,
+            .color-options {
+                gap: 0.25rem;
+            }
+            
+            .size-option,
+            .color-option {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="Index.html" class="logo">Auréa & Co</a>
+            <ul class="nav-links">
+                <li><a href="Index.html#home">Home</a></li>
+                <li><a href="Index.html#products">Products</a></li>
+                <li><a href="Kontak.html">Contact</a></li>
+                <li><a href="Checkout.html">Cart <span class="cart-counter">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="product-detail-container">
+            <!-- Product Images -->
+            <div class="product-image-gallery">
+                <img src="" alt="" class="product-main-image" id="mainImage">
+                <div class="product-thumbnails" id="thumbnails">
+                    <!-- Thumbnails will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Product Information -->
+            <div class="product-info">
+                <!-- Breadcrumb -->
+                <nav class="breadcrumb">
+                    <a href="Index.html">Home</a> / 
+                    <a href="Index.html#products">Products</a> / 
+                    <span class="product-category"></span>
+                </nav>
+
+                <!-- Product Category -->
+                <div class="product-category"></div>
+
+                <!-- Product Title -->
+                <h1 class="product-title"></h1>
+
+                <!-- Product Rating -->
+                <div class="product-rating">
+                    <!-- Rating will be loaded dynamically -->
+                </div>
+
+                <!-- Product Price -->
+                <div class="product-price"></div>
+
+                <!-- Product Description -->
+                <p class="product-description"></p>
+
+                <!-- Product Options -->
+                <div class="product-options">
+                    <!-- Size Selection -->
+                    <div class="option-group">
+                        <label class="option-label">Size:</label>
+                        <div class="size-options">
+                            <!-- Size options will be loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Color Selection -->
+                    <div class="option-group">
+                        <label class="option-label">Color:</label>
+                        <div class="color-options">
+                            <!-- Color options will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quantity Selector -->
+                <div class="quantity-selector">
+                    <span class="quantity-label">Quantity:</span>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1" max="10" id="quantity">
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                </div>
+
+                <!-- Stock Information -->
+                <div class="stock-info">
+                    <!-- Stock info will be loaded dynamically -->
+                </div>
+
+                <!-- Product Actions -->
+                <div class="product-actions">
+                    <button class="add-to-cart-btn" onclick="addProductToCart()">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                    <button class="wishlist-btn" onclick="toggleWishlist()">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+
+                <!-- Product Features -->
+                <div class="product-features">
+                    <h3 class="features-title">Product Features</h3>
+                    <ul class="features-list">
+                        <!-- Features will be loaded dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Tabs -->
+        <div class="product-tabs">
+            <div class="container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="showTab('description')">Description</button>
+                    <button class="tab-btn" onclick="showTab('specifications')">Specifications</button>
+                    <button class="tab-btn" onclick="showTab('reviews')">Reviews</button>
+                    <button class="tab-btn" onclick="showTab('shipping')">Shipping Info</button>
+                </div>
+
+                <div class="tab-content active" id="description">
+                    <h3>Product Description</h3>
+                    <p class="product-description"></p>
+                </div>
+
+                <div class="tab-content" id="specifications">
+                    <h3>Specifications</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 0.75rem; font-weight: 600;">Material</td>
+                            <td style="padding: 0.75rem;">Premium synthetic leather</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 0.75rem; font-weight: 600;">Sole</td>
+                            <td style="padding: 0.75rem;">Durable rubber outsole</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 0.75rem; font-weight: 600;">Lining</td>
+                            <td style="padding: 0.75rem;">Soft breathable fabric</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 0.75rem; font-weight: 600;">Care Instructions</td>
+                            <td style="padding: 0.75rem;">Clean with damp cloth, air dry</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="tab-content" id="reviews">
+                    <h3>Customer Reviews</h3>
+                    <div class="reviews-summary">
+                        <p>Average rating: <span class="product-rating"></span></p>
+                        <p>Based on <span class="reviews-count"></span> customer reviews</p>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="shipping">
+                    <h3>Shipping Information</h3>
+                    <ul>
+                        <li>Free shipping for orders over Rp 500.000</li>
+                        <li>Standard delivery: 3-5 business days</li>
+                        <li>Express delivery: 1-2 business days (additional charges apply)</li>
+                        <li>Same day delivery available in Jakarta area</li>
+                        <li>30-day return policy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: #2c3e50; color: white; padding: 3rem 0; text-align: center;">
+        <div class="container">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+                <h3 style="margin-bottom: 1rem;">Auréa & Co</h3>
+                <p style="margin-bottom: 2rem; color: #bdc3c7;">Your trusted fashion partner for elegant footwear</p>
+                <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+                    <a href="#" style="color: #d4af37; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="color: #d4af37; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="#" style="color: #d4af37; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p style="color: #95a5a6; font-size: 0.9rem;">&copy; 2024 Auréa & Co. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Include Scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/fallback-data.js"></script>
+    <script src="js/products.js"></script>
+    
+    <script>
+        // Product detail page specific functions
+        let selectedSize = null;
+        let selectedColor = null;
+        let currentQuantity = 1;
+
+        // Size selection
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('size-option')) {
+                // Remove previous selection
+                document.querySelectorAll('.size-option').forEach(btn => btn.classList.remove('selected'));
+                // Add selection to clicked option
+                e.target.classList.add('selected');
+                selectedSize = e.target.dataset.size;
+            }
+            
+            if (e.target.classList.contains('color-option')) {
+                // Remove previous selection
+                document.querySelectorAll('.color-option').forEach(btn => btn.classList.remove('selected'));
+                // Add selection to clicked option
+                e.target.classList.add('selected');
+                selectedColor = e.target.dataset.color;
+            }
+        });
+
+        // Quantity controls
+        function increaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            const maxValue = parseInt(quantityInput.max);
+            
+            if (currentValue < maxValue) {
+                quantityInput.value = currentValue + 1;
+                currentQuantity = currentValue + 1;
+            }
+        }
+
+        function decreaseQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            const minValue = parseInt(quantityInput.min);
+            
+            if (currentValue > minValue) {
+                quantityInput.value = currentValue - 1;
+                currentQuantity = currentValue - 1;
+            }
+        }
+
+        // Add to cart with options
+        function addProductToCart() {
+            const product = productManager.getCurrentProduct();
+            if (!product) return;
+
+            // Validate selections
+            if (!selectedSize) {
+                alert('Please select a size');
+                return;
+            }
+
+            if (!selectedColor) {
+                alert('Please select a color');
+                return;
+            }
+
+            // Add multiple items based on quantity
+            for (let i = 0; i < currentQuantity; i++) {
+                addToCart(product.name, product.price);
+            }
+
+            // Show success message with details
+            showNotification(`${currentQuantity}x ${product.name} (Size: ${selectedSize}, Color: ${selectedColor}) added to cart!`);
+        }
+
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Wishlist functionality
+        function toggleWishlist() {
+            const btn = document.querySelector('.wishlist-btn i');
+            if (btn.classList.contains('far')) {
+                btn.classList.remove('far');
+                btn.classList.add('fas');
+                showNotification('Added to wishlist!');
+            } else {
+                btn.classList.remove('fas');
+                btn.classList.add('far');
+                showNotification('Removed from wishlist!');
+            }
+        }
+
+        // Update quantity when input changes
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityInput = document.getElementById('quantity');
+            if (quantityInput) {
+                quantityInput.addEventListener('change', function() {
+                    currentQuantity = parseInt(this.value);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

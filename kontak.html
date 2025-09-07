@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak - Auréa & Co Fashion Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script defer src="js/script.js"></script>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="Index.html" class="logo">Auréa & Co</a>
+            <ul class="nav-links">
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="Index.html#products">Products</a></li>
+                <li><a href="Kontak.html">Contact</a></li>
+                <li><a href="Checkout.html">Cart <span class="cart-counter">0</span></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact-section" style="margin-top: 80px;">
+        <div class="container">
+            <h2 class="section-title">Hubungi Kami</h2>
+            <p class="section-subtitle">Kami senang mendengar dari Anda! Kirimkan pesan dan kami akan merespons segera.</p>
+            
+            <div class="contact-form">
+                <form id="contact-form" onsubmit="submitContactForm(event)">
+                    <div class="form-group">
+                        <label for="name">
+                            <i class="fas fa-user"></i> Nama Lengkap
+                        </label>
+                        <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap Anda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i> Email
+                        </label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan alamat email Anda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">
+                            <i class="fas fa-phone"></i> Nomor Telepon (Opsional)
+                        </label>
+                        <input type="tel" id="phone" name="phone" placeholder="Masukkan nomor telepon Anda">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">
+                            <i class="fas fa-tag"></i> Subjek
+                        </label>
+                        <input type="text" id="subject" name="subject" placeholder="Subjek pesan Anda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">
+                            <i class="fas fa-comment"></i> Pesan
+                        </label>
+                        <textarea id="message" name="message" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="cta-button" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> Kirim Pesan
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Contact Information -->
+            <div style="margin-top: 3rem; text-align: center;">
+                <h3 style="color: #2c3e50; margin-bottom: 2rem;">Informasi Kontak Lainnya</h3>
+                <div class="contact-info" style="justify-content: center;">
+                    <div class="contact-item" style="flex-direction: column; text-align: center;">
+                        <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: #e74c3c; margin-bottom: 1rem;"></i>
+                        <h4 style="margin: 0.5rem 0; color: #2c3e50;">Alamat Toko</h4>
+                        <p style="margin: 0; color: #7f8c8d;">Jl. Fashion Street No. 123<br>Jakarta Selatan, DKI Jakarta<br>Indonesia 12345</p>
+                    </div>
+                    
+                    <div class="contact-item" style="flex-direction: column; text-align: center;">
+                        <i class="fas fa-clock" style="font-size: 2rem; color: #e74c3c; margin-bottom: 1rem;"></i>
+                        <h4 style="margin: 0.5rem 0; color: #2c3e50;">Jam Operasional</h4>
+                        <p style="margin: 0; color: #7f8c8d;">Senin - Jumat: 09:00 - 21:00<br>Sabtu - Minggu: 10:00 - 22:00<br>Hari Libur: 10:00 - 20:00</p>
+                    </div>
+                    
+                    <div class="contact-item" style="flex-direction: column; text-align: center;">
+                        <i class="fas fa-headset" style="font-size: 2rem; color: #e74c3c; margin-bottom: 1rem;"></i>
+                        <h4 style="margin: 0.5rem 0; color: #2c3e50;">Customer Service</h4>
+                        <p style="margin: 0; color: #7f8c8d;">
+                            <i class="fas fa-phone"></i> +62 812-3456-7890<br>
+                            <i class="fas fa-envelope"></i> cs@aurea-co.com<br>
+                            <i class="fab fa-whatsapp"></i> +62 812-3456-7890
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Auréa & Co Fashion Store</h3>
+                <p>Your trusted partner for premium fashion and lifestyle products.</p>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@aurea-co.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+62 812-3456-7890</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Jakarta, Indonesia</span>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Auréa & Co Fashion Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
